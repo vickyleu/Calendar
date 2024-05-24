@@ -1,17 +1,18 @@
 package io.wojciechosak.calendar.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import io.wojciechosak.calendar.config.CalendarConfig
@@ -89,17 +90,19 @@ fun CalendarView(
             },
         )
     }
-    Column {
+    Column(verticalArrangement = Arrangement.Top) {
         if (config.value.showHeader) {
-            header(yearMonth.month, yearMonth.year)
+			Box(modifier = Modifier.background(Color.Red)){
+				header(yearMonth.month, yearMonth.year)
+			}
         }
 
-        LazyVerticalGrid(
+        /*LazyVerticalGrid(
             columns = GridCells.Fixed(7),
             horizontalArrangement = horizontalArrangement,
             verticalArrangement = verticalArrangement,
             userScrollEnabled = false,
-            modifier = modifier,
+            modifier = modifier.background(Color.Blue),
         ) {
             val state = config.value
             val weekDaysCount = if (state.showWeekdays) 7 else 0
@@ -121,7 +124,7 @@ fun CalendarView(
                     day = day,
                 )
             }
-        }
+        }*/
     }
 }
 
@@ -190,6 +193,7 @@ private fun Item(
                 date = newDate,
                 config = rangeConfig,
             ),
+			contentAlignment = Alignment.TopCenter
         ) {
             day(
                 DayState(

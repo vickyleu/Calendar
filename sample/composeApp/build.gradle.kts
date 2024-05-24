@@ -1,22 +1,27 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.multiplatform)
-    alias(libs.plugins.compose)
-    alias(libs.plugins.android.application)
+    id(libs.plugins.kotlin.multiplatform.get().pluginId)
+    alias(libs.plugins.jetbrains.compose)
+	id(libs.plugins.android.application.get().pluginId)
     alias(libs.plugins.ktlint)
+	alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
-        }
+
+		compilerOptions {
+			jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvmTarget.get()))
+		}
     }
 
-    jvm()
+    jvm{
+	}
 
     js {
         browser()
@@ -47,7 +52,7 @@ kotlin {
             implementation(compose.materialIconsExtended)
             @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
-            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.coroutines.core)
             implementation(libs.composeIcons.featherIcons)
             implementation(libs.kotlinx.datetime)
 
@@ -56,7 +61,8 @@ kotlin {
             implementation(libs.voyager.screenModel)
             implementation(libs.voyager.transitions)
 
-            implementation(project(":calendar"))
+			implementation(libs.compose.calendar)
+//            implementation(project(":calendar"))
         }
 
         commonTest.dependencies {
@@ -65,15 +71,15 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.appcompat)
-            implementation(libs.androidx.activityCompose)
-            implementation(libs.compose.uitooling)
-            implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.compose.ui.tooling)
+            implementation(libs.coroutines.android)
         }
 
         jvmMain.dependencies {
             implementation(compose.desktop.common)
             implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.coroutines.swing)
         }
 
         jsMain.dependencies {
@@ -103,15 +109,15 @@ android {
         resources.srcDirs("src/commonMain/resources")
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.jvmTarget.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.jvmTarget.get())
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.4"
-    }
+//    buildFeatures {
+//        compose = true
+//    }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = "1.5.11"
+//    }
 }
 
 compose.desktop {
@@ -124,8 +130,4 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
-}
-
-compose.experimental {
-    web.application {}
 }

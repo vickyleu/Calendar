@@ -9,6 +9,7 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.wojciechosak.calendar.animation.CalendarAnimator
@@ -61,7 +62,8 @@ fun HorizontalCalendarView(
         state = pagerState,
         modifier = modifier,
         pageSize = pageSize,
-        beyondBoundsPageCount = beyondBoundsPageCount,
+		verticalAlignment = Alignment.Top,
+//    TODO 缺失    beyondBoundsPageCount = beyondBoundsPageCount,
         contentPadding = contentPadding,
     ) {
         val index = it - INITIAL_PAGE_INDEX
