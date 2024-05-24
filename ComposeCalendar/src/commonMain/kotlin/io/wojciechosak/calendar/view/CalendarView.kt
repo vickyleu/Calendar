@@ -90,7 +90,7 @@ fun CalendarView(
             },
         )
     }
-    Column(verticalArrangement = Arrangement.Top) {
+    Column(verticalArrangement = Arrangement.Top, modifier = Modifier.background(Color.Yellow)) {
         if (config.value.showHeader) {
 			Box(modifier = Modifier.background(Color.Red)){
 				header(yearMonth.month, yearMonth.year)
