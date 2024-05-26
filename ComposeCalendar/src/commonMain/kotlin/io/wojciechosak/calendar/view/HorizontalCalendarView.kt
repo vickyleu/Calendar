@@ -1,6 +1,7 @@
 package io.wojciechosak.calendar.view
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.pager.HorizontalPager
@@ -9,14 +10,25 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.wojciechosak.calendar.animation.CalendarAnimator
+import io.wojciechosak.calendar.config.CalendarConfig
 import io.wojciechosak.calendar.config.CalendarConstants.INITIAL_PAGE_INDEX
 import io.wojciechosak.calendar.config.CalendarConstants.MAX_PAGES
+import io.wojciechosak.calendar.config.MonthYear
 import io.wojciechosak.calendar.config.rememberCalendarState
+import io.wojciechosak.calendar.utils.toMonthYear
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.Month
+import kotlinx.datetime.plus
 
 /**
  * Composable function to display a horizontal calendar view.
@@ -30,47 +42,84 @@ import kotlinx.datetime.LocalDate
  * @param calendarAnimator The animator used for animating calendar transitions.
  * @param calendarView The composable function to display the content of each calendar page.
  */
+@Suppress("NAME_SHADOWING")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HorizontalCalendarView(
-    startDate: LocalDate,
-    pagerState: PagerState = rememberPagerState(
-        initialPage = INITIAL_PAGE_INDEX,
-        pageCount = { MAX_PAGES },
-    ),
-    modifier: Modifier = Modifier,
-    pageSize: PageSize = PageSize.Fill,
-    beyondBoundsPageCount: Int = 0,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
-    calendarAnimator: CalendarAnimator = CalendarAnimator(startDate),
-    calendarView: @Composable (monthOffset: Int) -> Unit = {
-        CalendarView(
-            day = { dayState ->
-                CalendarDay(
-                    state = dayState,
-                    onClick = { },
-                )
-            },
-            config = rememberCalendarState(
-                startDate = startDate,
-                monthOffset = it,
-            ),
-        )
-    },
+	startDate: LocalDate,
+	pagerState: PagerState = rememberPagerState(
+		initialPage = INITIAL_PAGE_INDEX,
+		pageCount = { MAX_PAGES },
+	),
+	config: MutableState<CalendarConfig> = rememberCalendarState(
+		startDate = startDate,
+		monthOffset = 0,
+	),
+	modifier: Modifier = Modifier,
+	pageSize: PageSize = PageSize.Fill,
+//    beyondBoundsPageCount: Int = 0,
+	contentPadding: PaddingValues = PaddingValues(0.dp),
+	header: @Composable (month: Month, year: Int,calendarAnimator: CalendarAnimator) -> Unit = { month, year,calendarAnimator ->
+		MonthHeader(month, year)
+	},
+	yearMonth: MutableState<MonthYear> = remember { mutableStateOf(config.value.monthYear) },
+	calendarAnimator: CalendarAnimator = CalendarAnimator(startDate),
+	calendarView: @Composable (
+		monthOffset: Int, config: MutableState<CalendarConfig>,
+		header: @Composable (month: Month, year: Int,calendarAnimator:CalendarAnimator) -> Unit
+	) -> Unit = { monthOffset, config, header ->
+		CalendarView(
+			day = { dayState ->
+				CalendarDay(
+					state = dayState,
+					onClick = { },
+				)
+			},
+			header = header,
+			yearMonth = yearMonth,
+			config = config,
+		)
+	},
 ) {
-    HorizontalPager(
-        state = pagerState,
-        modifier = modifier,
-        pageSize = pageSize,
-		verticalAlignment = Alignment.Top,
+	Column(modifier = modifier) {
+		if (!config.value.headerCanScroll && config.value.showHeader) {
+			Box(modifier = Modifier) {
+				header(yearMonth.value.month, yearMonth.value.year,calendarAnimator)
+			}
+		}
+
+		LaunchedEffect(Unit) {
+			snapshotFlow { pagerState.currentPage }
+				.distinctUntilChanged()
+				.collect{
+					val index = it - INITIAL_PAGE_INDEX
+					println("monthOffset::index:::$index")
+					config.value = config.value.copy(
+						monthYear = startDate.plus(index, DateTimeUnit.MONTH).toMonthYear()
+					)
+					yearMonth.value = config.value.monthYear
+				}
+		}
+
+		HorizontalPager(
+			state = pagerState,
+			pageSize = pageSize,
+			verticalAlignment = Alignment.Top,
 //    TODO 缺失    beyondBoundsPageCount = beyondBoundsPageCount,
-        contentPadding = contentPadding,
-    ) {
-        val index = it - INITIAL_PAGE_INDEX
-        calendarAnimator.updatePagerState(pagerState)
-        LaunchedEffect(Unit) {
-            calendarAnimator.setAnimationMode(CalendarAnimator.AnimationMode.MONTH)
-        }
-        Column { calendarView(index) }
-    }
+			contentPadding = contentPadding,
+		) {
+			val index = it - INITIAL_PAGE_INDEX
+			calendarAnimator.updatePagerState(pagerState)
+			LaunchedEffect(Unit) {
+				calendarAnimator.setAnimationMode(CalendarAnimator.AnimationMode.MONTH)
+			}
+
+
+			Column {
+				println("monthOffset::${index}")
+				calendarView(index, config, header,)
+			}
+		}
+	}
+
 }

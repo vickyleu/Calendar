@@ -25,6 +25,7 @@ import kotlinx.datetime.plus
  */
 @Stable
 data class CalendarConfig(
+    val startDate: LocalDate,
     val minDate: LocalDate,
     val maxDate: LocalDate,
     val monthYear: MonthYear,
@@ -34,6 +35,7 @@ data class CalendarConfig(
     val showHeader: Boolean,
     val showWeekdays: Boolean,
     val selectedDates: List<LocalDate>,
+	val headerCanScroll: Boolean = true,
 )
 
 /**
@@ -63,9 +65,11 @@ fun rememberCalendarState(
     showHeader: Boolean = true,
     showWeekdays: Boolean = true,
     selectedDates: MutableList<LocalDate> = mutableListOf(),
+	headerCanScroll: Boolean = true,
 ): MutableState<CalendarConfig> = remember {
     mutableStateOf(
         CalendarConfig(
+			startDate = startDate,
             minDate = minDate,
             maxDate = maxDate,
             monthYear = startDate.plus(monthOffset, DateTimeUnit.MONTH).toMonthYear(),
@@ -75,6 +79,7 @@ fun rememberCalendarState(
             showHeader = showHeader,
             showWeekdays = showWeekdays,
             selectedDates = selectedDates,
+			headerCanScroll= headerCanScroll,
         ),
     )
 }
