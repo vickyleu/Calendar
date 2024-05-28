@@ -56,7 +56,7 @@ kotlin {
             implementation(libs.composeIcons.featherIcons)
             implementation(libs.kotlinx.datetime)
 
-			implementation(libs.androidx.activity.compose)
+
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.bottomSheetNavigator)
             implementation(libs.voyager.screenModel)
@@ -72,7 +72,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.appcompat)
-
+			implementation(libs.androidx.activity.compose)
             implementation(libs.compose.ui.tooling)
             implementation(libs.coroutines.android)
         }
