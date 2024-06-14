@@ -44,8 +44,9 @@ fun Task.updatePodspecFile(
     val projectLayout = project.layout.buildDirectory
     val framework = projectLayout.dir("cocoapods").map { it.dir("framework") }
 
-    // 不靠谱的jetbrains, 编译目录改来改去的, 有时候是compose/cocoapods/compose-resources, 有时候是compose/ios/composeApp/compose-resources
-    var composeResources = projectLayout.dir("compose/cocoapods")
+	//../../../buildOut/KMMCompose/subprojects/composeApp/compose/cocoapods/compose-resources
+    // 不靠谱的jetbrains, 编译目录改来改去的, 有时候是         compose/cocoapods/compose-resources, 有时候是compose/ios/composeApp/compose-resources
+	var composeResources = projectLayout.dir("compose/cocoapods")
         .map { it.dir("compose-resources") }
     if(!projectLayout.dir("compose/cocoapods").get().asFile.exists()){
         if(!composeResources.get().asFile.exists()){
@@ -61,6 +62,9 @@ fun Task.updatePodspecFile(
         (frameworkDir.resolve("${project.name}.framework")).invariantSeparatorsPath
     val currentPathNormalized = currentPath.normalize()
     val composeResourcesRelativelyPath = composeResourcesDir.invariantSeparatorsPath
+
+
+	println("composeResourcesRelativelyPath::$composeResourcesRelativelyPath")
     val composeResourcesPath =
         Paths.get(File(currentPathNormalized.absolutePath + "/" + composeResourcesRelativelyPath).absolutePath)
     val frameworkPath =
