@@ -470,7 +470,6 @@ fun Project.creatingIosNativePodspecExport(
 
                 else -> ""
             }).removeSurrounding(" ")
-            //  mother fucker , isBlank can't use ????
             if (!versionOrUrl.isNotBlank()) {
                 matcherSourceType.find(index)
                 val sourceType = matcherSourceType.group(2)?.removeSurrounding(" ")?.trim() ?: ""
@@ -666,7 +665,6 @@ fun toPodsVersion(
 ) = if (forceReplaceDependencies.containsKey(it.key)) {
     ", '${forceReplaceDependencies[it.key]}'"
 } else {
-    //  mother fucker , isBlank can't use ????
     if (!it.value.isNotBlank()) {
         ""
     } else {
