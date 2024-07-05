@@ -113,7 +113,10 @@ fun CalendarView(
 			val state = config.value
 			val weekDaysCount = if (state.showWeekdays) 7 else 0
 
-			items(previousMonthDays + daysInCurrentMonth + nextMonthDays + weekDaysCount) { iteration ->
+			println("previousMonthDays==::$previousMonthDays")
+			items(previousMonthDays + daysInCurrentMonth + nextMonthDays + weekDaysCount,{
+				it
+			}) { iteration ->
 				Item(
 					iteration = iteration,
 					config = config,
@@ -201,6 +204,7 @@ private fun Item(
 			),
 			contentAlignment = Alignment.TopCenter
 		) {
+			println("newDate===:${newDate}  monthNumber=${newDate.monthNumber}")
 			day(
 				DayState(
 					date = newDate,

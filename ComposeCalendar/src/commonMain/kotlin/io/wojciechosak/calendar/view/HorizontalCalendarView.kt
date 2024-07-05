@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
+import kotlinx.datetime.number
 import kotlinx.datetime.plus
 
 /**
@@ -93,10 +94,13 @@ fun HorizontalCalendarView(
 				.distinctUntilChanged()
 				.collect{
 					val index = it - INITIAL_PAGE_INDEX
-					println("monthOffset::index:::$index")
+
 					config.value = config.value.copy(
 						monthYear = startDate.plus(index, DateTimeUnit.MONTH).toMonthYear()
 					)
+					println("monthOffset::index:::$index " +
+						"  startDate:${startDate.monthNumber}" +
+						" ${startDate.plus(index, DateTimeUnit.MONTH).toMonthYear().month.number}")
 					yearMonth.value = config.value.monthYear
 				}
 		}
