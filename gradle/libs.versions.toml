@@ -1,11 +1,12 @@
 [versions]
 jvmTarget = "17"
 kotlin = "2.0.0"
-compose-plugin = "1.6.10"
-agp = "8.4.1"
-androidx-appcompat = "1.6.1"
+agp = "8.5.0"
+#compose-plugin = "1.6.11"
+compose-plugin = "1.7.0-alpha01"
+androidx-appcompat = "1.7.0"
 androidx-activityCompose = "1.9.0"
-jetpack-compose-bom = "2024.05.00"
+jetpack-compose-bom = "2024.06.00"
 coroutines-bom = "1.8.1"
 
 composeIcons = "1.1.0"
