@@ -1,5 +1,5 @@
 rootProject.name = "Calendar"
-include(":sample:composeApp")
+//include(":sample:composeApp")
 include(":ComposeCalendar")
 
 pluginManagement {
