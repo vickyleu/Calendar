@@ -204,7 +204,6 @@ private fun Item(
 			),
 			contentAlignment = Alignment.TopCenter
 		) {
-			println("newDate===:${newDate}  monthNumber=${newDate.monthNumber}")
 			day(
 				DayState(
 					date = newDate,
