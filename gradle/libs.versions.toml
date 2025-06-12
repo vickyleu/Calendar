@@ -1,17 +1,17 @@
 [versions]
 jvmTarget = "17"
-kotlin = "2.0.20"
-agp = "8.7.1"
-compose-plugin = "1.7.0"
-androidx-appcompat = "1.7.0"
-androidx-activityCompose = "1.9.3"
-jetpack-compose-bom = "2024.10.00"
-coroutines-bom = "1.9.0"
+kotlin = "2.1.21"
+agp = "8.10.1"
+compose-plugin = "1.8.1"
+androidx-appcompat = "1.7.1"
+androidx-activityCompose = "1.10.1"
+jetpack-compose-bom = "2025.06.00"
+coroutines-bom = "1.10.2"
 composeIcons = "1.1.0"
-kotlinx-datetime = "0.6.0"
+kotlinx-datetime = "0.6.2"
 voyager = "1.1.0-beta03"
-ktlint = "4.2.0"
-dokka = "1.9.20"
+ktlint = "5.1.1"
+dokka = "2.0.0"
 
 [libraries]
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "jetpack-compose-bom" }
@@ -19,7 +19,7 @@ coroutines-bom = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-b
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-compose-calendar = { module = "com.vickyleu.calendar:calendar", version = "1.0.2" }
+compose-calendar = { module = "com.vickyleu.calendar:calendar", version = "1.0.3" }
 
 coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm" }
 

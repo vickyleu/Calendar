@@ -143,7 +143,7 @@ buildscript {
 //version = "${libs.versions.compose.plugin.get()}.beta1"
 
 group = "com.vickyleu.calendar"
-version = "1.0.2"
+version = "1.0.3"
 
 
 tasks.withType<PublishToMavenRepository> {
