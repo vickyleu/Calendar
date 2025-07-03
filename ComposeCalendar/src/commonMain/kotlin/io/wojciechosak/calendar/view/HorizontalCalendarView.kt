@@ -99,7 +99,7 @@ fun HorizontalCalendarView(
 						monthYear = startDate.plus(index, DateTimeUnit.MONTH).toMonthYear()
 					)
 					println("monthOffset::index:::$index " +
-						"  startDate:${startDate.monthNumber}" +
+						"  startDate:${startDate.month.number}" +
 						" ${startDate.plus(index, DateTimeUnit.MONTH).toMonthYear().month.number}")
 					yearMonth.value = config.value.monthYear
 				}

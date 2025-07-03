@@ -1,12 +1,15 @@
+@file:OptIn(ExperimentalTime::class)
+
 package io.wojciechosak.calendar.utils
 
 import io.wojciechosak.calendar.config.MonthYear
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.ExperimentalTime
 
 /**
  * Checks if a given year is a leap year.
@@ -40,12 +43,12 @@ fun monthLength(
     }
 }
 
-internal fun LocalDateTime.toLocalDate(): LocalDate = LocalDate(year, month, dayOfMonth)
+internal fun LocalDateTime.toLocalDate(): LocalDate = LocalDate(year, month, day)
 
 fun LocalDate.copy(
-    year: Int = this.year,
-    month: Month = this.month,
-    day: Int = this.dayOfMonth,
+	year: Int = this.year,
+	month: Month = this.month,
+	day: Int = this.day,
 ): LocalDate = try {
     LocalDate(year, month, day)
 } catch (e: IllegalArgumentException) {

@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.wojciechosak.calendar.config.DayState
 import io.wojciechosak.calendar.utils.Pallete
+import kotlinx.datetime.LocalDate
 
 /**
  * Composable function to display a calendar day.
@@ -53,7 +54,7 @@ fun CalendarDay(
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                "${date.dayOfMonth}",
+                "${date.day}",
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
             )

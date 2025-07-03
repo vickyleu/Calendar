@@ -68,7 +68,7 @@ class CalendarAnimator(private val startDate: LocalDate) {
         val targetDate =
             target.run {
                 if (mode == AnimationMode.MONTH) {
-                    copy(day = currentDate.dayOfMonth)
+                    copy(day = currentDate.day)
                 } else {
                     this
                 }

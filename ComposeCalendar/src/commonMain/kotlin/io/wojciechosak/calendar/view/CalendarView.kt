@@ -158,7 +158,7 @@ private fun Item(
 		iteration >= weekDaysCount && iteration < weekDaysCount + previousMonthDays
 	val nextMonthDay =
 		iteration >= weekDaysCount + previousMonthDays + daysInCurrentMonth
-	var newDate = LocalDate(year = yearMonth.year, month = yearMonth.month, dayOfMonth = 1)
+	var newDate = LocalDate(year = yearMonth.year, month = yearMonth.month, day = 1)
 
 	if (previousMonthDay && config.value.showPreviousMonthDays) {
 		newDate = newDate.plus(iteration - weekDaysCount - previousMonthDays, DateTimeUnit.DAY)
@@ -251,12 +251,12 @@ private fun selectDate(
 
 private fun calculateVisibleDaysOfPreviousMonth(monthYear: MonthYear): Int {
 	val (month, year) = monthYear
-	return LocalDate(year = year, month = month, dayOfMonth = 1).dayOfWeek.ordinal
+	return LocalDate(year = year, month = month, day = 1).dayOfWeek.ordinal
 }
 
 private fun calculateVisibleDaysOfNextMonth(monthYear: MonthYear): Int {
 	val (month, year) = monthYear
 	val daysInMonth = monthLength(month, year)
-	val lastMonthDay = LocalDate(year = year, month = month, dayOfMonth = daysInMonth)
+	val lastMonthDay = LocalDate(year = year, month = month, day = daysInMonth)
 	return 6 - lastMonthDay.dayOfWeek.ordinal
 }

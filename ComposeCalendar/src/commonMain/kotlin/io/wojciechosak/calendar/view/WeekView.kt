@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package io.wojciechosak.calendar.view
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -22,7 +24,7 @@ import io.wojciechosak.calendar.utils.copy
 import io.wojciechosak.calendar.utils.daySimpleName
 import io.wojciechosak.calendar.utils.monthLength
 import io.wojciechosak.calendar.utils.toLocalDate
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -30,6 +32,7 @@ import kotlinx.datetime.daysUntil
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.ExperimentalTime
 
 /**
  * Composable function to display a week view with selectable days.

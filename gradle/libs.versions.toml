@@ -1,15 +1,16 @@
 [versions]
 jvmTarget = "17"
-kotlin = "2.1.21"
-agp = "8.10.1"
-compose-plugin = "1.8.1"
+kotlin = "2.2.0"
+agp = "8.11.0"
+compose-plugin = "1.8.2"
 androidx-appcompat = "1.7.1"
 androidx-activityCompose = "1.10.1"
-jetpack-compose-bom = "2025.06.00"
+jetpack-compose-bom = "2025.06.01"
 coroutines-bom = "1.10.2"
-composeIcons = "1.1.0"
-kotlinx-datetime = "0.6.2"
-voyager = "1.1.0-beta03"
+composeIcons = "1.1.1"
+kotlinx-datetime = "0.7.0"
+androidx-lifecycle = "2.9.0"
+androidx-navigation = "2.9.0-beta03"
 ktlint = "5.1.1"
 dokka = "2.0.0"
 
@@ -33,11 +34,8 @@ coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing"}
 composeIcons-featherIcons = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "composeIcons" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
-
-voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
-voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
-voyager-bottomSheetNavigator = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
-voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
+compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+compose-backhandler = { module = "org.jetbrains.compose.ui:ui-backhandler"}
 
 [plugins]
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
