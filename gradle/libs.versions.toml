@@ -1,34 +1,35 @@
 [versions]
 jvmTarget = "17"
-kotlin = "2.2.0"
-agp = "8.11.0"
-compose-plugin = "1.8.2"
+kotlin = "2.3.21"
+agp = "8.13.2"
+compose-plugin = "1.10.3"
 androidx-appcompat = "1.7.1"
-androidx-activityCompose = "1.10.1"
-jetpack-compose-bom = "2025.06.01"
+androidx-activityCompose = "1.13.0"
+jetpack-compose-bom = "2026.04.01"
 coroutines-bom = "1.10.2"
 composeIcons = "1.1.1"
-kotlinx-datetime = "0.7.0"
-androidx-lifecycle = "2.9.0"
-androidx-navigation = "2.9.0-beta03"
+kotlinx-datetime = "0.7.1"
+androidx-lifecycle = "2.10.0"
+androidx-navigation = "2.9.2"
 ktlint = "5.1.1"
-dokka = "2.0.0"
+dokka = "2.2.0"
+vanniktech-maven-publish = "0.36.0"
 
 [libraries]
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "jetpack-compose-bom" }
 coroutines-bom = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-bom", version.ref = "coroutines-bom" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-compose-calendar = { module = "com.vickyleu.calendar:calendar", version = "1.0.3" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version = "1.9.4" }
+compose-calendar = { module = "com.vickyleu.kmp.calendar:calendar", version = "2.0.0" }
 
-coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm" }
+coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "coroutines-bom" }
 
 
-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core" }
-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android" }
-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing"}
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version = "1.9.4" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-bom" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines-bom" }
+coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines-bom" }
 
 
 composeIcons-featherIcons = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "composeIcons" }
@@ -39,6 +40,7 @@ compose-backhandler = { module = "org.jetbrains.compose.ui:ui-backhandler"}
 
 [plugins]
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-maven-publish" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }

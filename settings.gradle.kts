@@ -5,8 +5,11 @@ include(":ComposeCalendar")
 pluginManagement {
     repositories {
         google()
-        gradlePluginPortal()
         mavenCentral()
+        gradlePluginPortal()
+        maven("https://maven.aliyun.com/repository/google")
+        maven("https://maven.aliyun.com/repository/public")
+        maven("https://maven.aliyun.com/repository/gradle-plugin")
         maven {
             setUrl("https://plugins.gradle.org/m2/")
         }
@@ -15,50 +18,21 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        google{
-			content {
-				excludeGroupByRegex("com.vickyleu.*")
-				excludeGroupByRegex("com.github.*")
-				excludeGroupByRegex("io.github.*")
-			}
-		}
-        mavenCentral{
-			content {
-				excludeGroupByRegex("com.vickyleu.*")
-				excludeGroupByRegex("com.github.*")
-				excludeGroupByRegex("io.github.*")
-			}
-		}
-        maven {
-            setUrl("https://plugins.gradle.org/m2/")
-			content {
-				excludeGroupByRegex("com.vickyleu.*")
-				excludeGroupByRegex("com.github.*")
-				excludeGroupByRegex("io.github.*")
-			}
+        maven("https://maven.aliyun.com/repository/google") {
+            content {
+                excludeModule("androidx.savedstate", "savedstate-js")
+                excludeModule("androidx.savedstate", "savedstate-compose-js")
+            }
         }
-
-		val properties = java.util.Properties().apply {
-			runCatching { rootProject.projectDir.resolve("local.properties") }
-				.getOrNull()
-				.takeIf { it?.exists() ?: false }
-				?.reader()
-				?.use(::load)
-		}
-		val environment: Map<String, String?> = System.getenv()
-		extra["githubToken"] = properties["github.token"] as? String
-			?: environment["GITHUB_TOKEN"] ?: ""
-		maven {
-			url = uri("https://maven.pkg.github.com/vickyleu/${rootProject.name.lowercase()}")
-			credentials {
-				username = "vickyleu"
-				password = extra["githubToken"]?.toString()
-			}
-			content {
-				excludeGroupByRegex("(?!com|cn).github.(?!vickyleu).*")
-			}
-		}
-
+        google {
+            content {
+                includeModule("androidx.savedstate", "savedstate-js")
+                includeModule("androidx.savedstate", "savedstate-compose-js")
+            }
+        }
+        mavenCentral()
+        gradlePluginPortal()
+        maven("https://maven.aliyun.com/repository/public")
+        maven("https://maven.aliyun.com/repository/gradle-plugin")
     }
-
 }
